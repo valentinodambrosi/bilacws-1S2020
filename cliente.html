@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Exemplo de Cliente</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script>
+	$(document).ready(function(){
+	
+		$('#btnEnviar').click(function(){
+
+            var dados = {
+                        "nome":$("#txtCliente").val(),
+                        "telefone":$("#txtTelefone").val(),
+                        "email":$("#txtEmail").val()
+            };
+		
+			$.ajax({  'url':'clienteControle.php',
+                'data': JSON.stringify(dados), 
+                'type': 'POST',
+                'processData': false,
+                'contentType': 'application/json' ,
+            
+			success: function(msg)
+			{
+			    alert(msg.status);
+      }
+				
+			});
+		});
+
+
+
+
+
+      $('#btnPsq').click(function(){
+
+            var id = $("#txtId").val();
+			
+			$.get("clienteControle.php",
+			{
+				id:id
+			},
+			function(dados)
+			{
+				
+        if(dados != null)
+				{
+					$("#txtCliente").val(dados.nome);
+					$("#txtTelefone").val(dados.telefone);
+					$("#txtEmail").val(dados.email);
+
+                    
+					
+				}
+				else
+				{
+					alert("Deu erro");
+				}
+			},'json');
+        });
+
+
+        
+
+
+
+	});
+</script>
+
+  </head>
+<body>
+
+<div class="container">
+  <h2>Exemplo - Cliente</h2>
+
+  <div class="form-group">
+    <label for="txtId">id:</label>
+    <input type="text" class="form-control" id="txtId"  name="txtId">
+
+    <button id="btnPsq">
+        buscar
+    </button>
+  </div>
+  
+    <div class="form-group">
+      <label for="cliente">Cliente:</label>
+      <input type="text" class="form-control" id="txtCliente"  name="txtCliente">
+    </div>
+    <div class="form-group">
+      <label for="txtTelefone">Telefone:</label>
+      <input type="text" class="form-control" id="txtTelefone"  name="txtTelefone">
+    </div>
+	
+	<div class="form-group">
+      <label for="txtEmail">Email:</label>
+      <input type="text" class="form-control" id="txtEmail"  name="txtEmail">
+    </div>
+	
+	
+	
+	<div class="form-group">
+      
+        <button id="btnEnviar">
+            enviar
+        </button>
+    </div>
+  
+</div>
+
+</body>
+</html>
