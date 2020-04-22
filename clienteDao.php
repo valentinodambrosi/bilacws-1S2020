@@ -101,13 +101,15 @@ function apagarCliente($Cliente) {
  
     $sql = "DELETE FROM cliente WHERE id ='".$Cliente->getId()."'";
 
-    echo $sql;
     if ($this->conn->query($sql) === TRUE) {
-        return "{status:sucesso}";
+        $status=["status"=>"sucesso"];
+        
     } else {
-        return "Error: " . $sql . "<br>" . $this->conn->error;
+        $status=["status"=>"error:". $this->conn->error];
+        
     }
 
+    return json_encode($status);
 }
 
 
@@ -115,15 +117,14 @@ function apagarCliente($Cliente) {
 function atualizarCliente($Cliente) {
 
     
- 
     $sql = "UPDATE cliente SET nome='".$Cliente->getNome()."', email='".$Cliente->getEmail()."', telefone='".$Cliente->getTelefone()."' WHERE id='".$Cliente->getId()."'";
 
     if ($this->conn->query($sql) === TRUE) {
-        return "{status:sucesso}";
+        $status=["status"=>"sucesso"];
     } else {
-        return "Error: " . $sql . "<br>" . $this->conn->error;
+        $status=["status"=>"error:". $this->conn->error];
     }
-
+    return json_encode($status);
 }
 
 
@@ -133,16 +134,5 @@ function atualizarCliente($Cliente) {
 }
 
 
-//$ClienteDao = new ClienteDao();
-//$Cliente = new Cliente("1","Valentino","333-333", "valentino@ektro.com.br");
-
-//echo $ClienteDao->inserirCliente($Cliente);
-//echo "<br>";
-//$ClienteDao->listarCliente();
-
-
-//echo $apple->get_name();
-//echo "<br>";
-//echo $apple->get_color();
 
 ?>
