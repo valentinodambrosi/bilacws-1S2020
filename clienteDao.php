@@ -31,7 +31,7 @@ function listarCliente() {
         // output data of each row
        // $pontos = array("Zé"=>"11", "José"=>"4", "Zéca"=>"22");
 
-       $clientes = [];
+       $clientes = array();
        
         while($row = $result->fetch_assoc()) {
 
@@ -39,7 +39,13 @@ function listarCliente() {
            // echo "id: " . $row["id"]. " - Nome: " . $row["nome"]. " Telefone" . $row["telefone"]. " email" . $row["email"]. "<br>"; //json
             array_push($clientes,$cliente);
         }
-        echo  json_encode($clientes);
+        
+        $dados = array('clientes' => $clientes);
+        
+        echo  json_encode($dados);
+
+          //echo  json_encode($clientes);
+        
 
     } else {
         echo "0 results";
@@ -70,7 +76,8 @@ function clientePorId($id) {
        // echo  json_encode($clientes);
 
     } else {
-        echo "0 results";
+        $status=["status"=>"0 Resultado"];
+        echo json_encode($status);
     }
     
 
